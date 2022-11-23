@@ -12,7 +12,6 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/file")
 public class UploadController {
     @Autowired
     private UploadUtils utils;
@@ -22,6 +21,8 @@ public class UploadController {
         List<String> urls = utils.fileInput(files);
         return new RestBean(200,urls);
     }
+
+
     @PostMapping("uploadtest")
     public String uploadtest(@RequestParam MultipartFile files){
         System.out.println(files.getOriginalFilename());
@@ -30,6 +31,7 @@ public class UploadController {
         return "";
     }
 
+
     @GetMapping("test")
     public String test() throws IOException {
 //        String filePath = environment.getProperty("filePath");
@@ -37,6 +39,4 @@ public class UploadController {
         String test = utils.test();
         return test;
     }
-
-
 }

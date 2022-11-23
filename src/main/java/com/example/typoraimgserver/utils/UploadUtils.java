@@ -1,21 +1,16 @@
 package com.example.typoraimgserver.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 
 @Component
@@ -23,6 +18,7 @@ public class UploadUtils {
     @Autowired
     private Environment environment;
     public String test() throws IOException {
+
 //        String filePath = environment.getProperty("filePath");
 //        return filePath;
 //        String nowIP1 = getNowIP();
@@ -41,7 +37,8 @@ public class UploadUtils {
             String[] split = contentType.split("/");
             String suffix = "";
             if (split[0].equals("image")){
-                String[] splits = file.getOriginalFilename().split(".");
+                String fileName = file.getOriginalFilename();
+                String[] splits = fileName.split("[.]");
                 suffix ="." + splits[splits.length - 1];
             }
             String storeName = getUUID();
@@ -84,59 +81,10 @@ public class UploadUtils {
         }
         return ip;
     }
-
-
-//    private BufferedImage mFileToBImage(MultipartFile file) {
-//        BufferedImage srcImage = null;
-//        try {
-//            FileInputStream in = (FileInputStream) file.getInputStream();
-//            srcImage = javax.imageio.ImageIO.read(in);
-//        } catch (IOException e) {
-//            System.out.println("文件类型转化异常！" + e.getMessage());
-//        }
-//        return srcImage;
-//    }
-
-    public static String saveMultipartFile(MultipartFile file, String targetDirPath){
-
-        File toFile = null;
-        if (file.equals("") || file.getSize() <= 0) {
-            return null;
-        } else {
-
-            /*获取文件原名称*/
-            String originalFilename = file.getOriginalFilename();
-            /*获取文件格式*/
-            String fileFormat = originalFilename.substring(originalFilename.lastIndexOf("."));
-
-            String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
-            toFile = new File(targetDirPath + File.separator + uuid + fileFormat);
-
-            String absolutePath = null;
-            try {
-                absolutePath = toFile.getCanonicalPath();
-
-                /*判断路径中的文件夹是否存在，如果不存在，先创建文件夹*/
-                String dirPath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-                File dir = new File(dirPath);
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                InputStream ins = file.getInputStream();
-
-                inputStreamToFile(ins, toFile);
-                ins.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-
-            return absolutePath;
-        }
-
+    public static void saveMultipartFile(MultipartFile file, String targetDirPath) throws IOException {
+        File tofile = new File(targetDirPath);
+        InputStream inputStream = file.getInputStream();
+        inputStreamToFile(inputStream,tofile);
     }
 
     //获取流文件
