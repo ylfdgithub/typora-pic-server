@@ -17,17 +17,6 @@ import java.util.UUID;
 public class UploadUtils {
     @Autowired
     private Environment environment;
-    public String test() throws IOException {
-
-//        String filePath = environment.getProperty("filePath");
-//        return filePath;
-//        String nowIP1 = getNowIP();
-//        return nowIP1;
-
-//        String uuid = getUUID();
-//        return uuid;
-        return "";
-    }
 
     public List<String> fileInput(MultipartFile files[]) throws IOException {
         String ipAddress = getNowIP();
