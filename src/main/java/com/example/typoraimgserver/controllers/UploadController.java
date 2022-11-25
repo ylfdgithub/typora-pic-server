@@ -18,6 +18,6 @@ public class UploadController {
     @PostMapping("upload")
     public RestBean upload(@RequestParam MultipartFile files[]) throws IOException {
         List<String> urls = utils.fileInput(files);
-        return new RestBean(200,urls);
+        return new RestBean(urls);
     }
 }

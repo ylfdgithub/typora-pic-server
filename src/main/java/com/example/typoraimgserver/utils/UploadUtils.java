@@ -44,6 +44,9 @@ public class UploadUtils {
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         return uuid;
     }
+    /*
+    获取服务器ip地址
+     */
     private String getNowIP() throws IOException {
         String ip = null;
         BufferedReader br = null;
@@ -70,6 +73,10 @@ public class UploadUtils {
         }
         return ip;
     }
+
+    /*
+    本地保存文件
+     */
     public static void saveMultipartFile(MultipartFile file, String targetDirPath) throws IOException {
         File tofile = new File(targetDirPath);
         InputStream inputStream = file.getInputStream();

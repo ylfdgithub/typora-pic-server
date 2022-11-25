@@ -10,6 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestBean {
-    int code;
     List<String> urls;
 }

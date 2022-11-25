@@ -11,5 +11,5 @@ spring:
     resources:
       static-locations: file:/root/typora_img/
 server:
-  port: 8080
-filePath: H://typora_img
+  port: 8081
+filePath: /root/typora_img/
